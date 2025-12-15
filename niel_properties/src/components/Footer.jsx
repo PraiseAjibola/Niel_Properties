@@ -1,34 +1,63 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+    
+    // Animation Variants
+    const slideUp = {
+        hidden: { opacity: 0, y: 50 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { duration: 0.6, ease: "easeOut" } 
+        }
+    };
+
+    const containerStagger = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1, // Stagger each column/link by 0.1s
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemFade = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0, 
+            transition: { duration: 0.5 } 
+        }
+    };
+
     return (
         <footer className="font-sans text-white">
 
             {/* --- SECTION 1: Newsletter & House Background --- */}
-            {/* Added minimum height 'min-h-[400px]' to ensure the section is tall enough for the image to look good */}
             <div className="relative bg-gradient-to-r from-[#003B95] to-[#0055D4] py-20 lg:py-28 overflow-hidden min-h-[400px] lg:min-h-[500px]">
 
-                {/* Background House Image (Left Side) */}
-                {/* FIX APPLIED HERE: 
-            1. Removed 'lg:left-20' so it sticks to the left edge.
-            2. Changed width constraints to 'h-full' so it fills the height.
-        */}
+                {/* Background House Image (Left Side) - No motion needed here as it's static BG */}
                 <div className="absolute bottom-0 left-0 right-0 w-full h-full opacity-30 lg:opacity-100 pointer-events-none z-0">
                     <img
                         src="/Footer_img.png"
                         alt="House Silhouette"
-                        // FIX APPLIED HERE:
-                        // 1. Removed hardcoded pixel widths (w-[300px], etc).
-                        // 2. Added 'h-full' to make it tall, and 'w-auto' to maintain aspect ratio.
-                        // 3. Changed object position to 'object-bottom-left'.
                         className="h-full w-full object-cover object-bottom-left"
                     />
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 lg:px-16 relative z-10 flex flex-col lg:flex-row justify-end items-center h-full">
 
-                    {/* Newsletter Card (Right Side) */}
-                    <div className="bg-white rounded-[2rem] p-8 md:p-12 w-full max-w-md shadow-2xl text-center">
+                    {/* Newsletter Card (Right Side) - Slides Up */}
+                    <motion.div 
+                        className="bg-white rounded-[2rem] p-8 md:p-12 w-full max-w-md shadow-2xl text-center"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: false, amount: 0.3 }} // Animates once when 30% visible
+                        variants={slideUp}
+                    >
 
                         <h2 className="text-2xl md:text-3xl font-semi-bold text-gray-900 mb-4 font-montserrat">
                             Subscribe to Our Newsletter
@@ -52,7 +81,7 @@ const Footer = () => {
                                 Subscribe Now
                             </button>
                         </form>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>
@@ -61,13 +90,19 @@ const Footer = () => {
             <div className="bg-[#003B95] pt-16 pb-8 border-t border-white/10">
                 <div className="max-w-7xl mx-auto px-6 lg:px-16">
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16">
+                    {/* Grid Container - Applies Stagger to Children */}
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8 mb-16"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: false, amount: 0.1 }}
+                        variants={containerStagger}
+                    >
 
-                        {/* Column 1: Brand & Socials (Spans 2 cols on Desktop) */}
-                        <div className="lg:col-span-2">
+                        {/* Column 1: Brand & Socials */}
+                        <motion.div className="lg:col-span-2" variants={itemFade}>
                             {/* Logo */}
                             <div className="flex items-center gap-2 mb-6">
-                                {/* Replace with your white logo version */}
                                 <img src="/FooterLogo_img.png" alt="Niel Capital" className="h-8" />
                             </div>
 
@@ -83,10 +118,10 @@ const Footer = () => {
                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                                 </a>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Column 2: Company */}
-                        <div>
+                        <motion.div variants={itemFade}>
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Company</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Home</a></li>
@@ -95,10 +130,10 @@ const Footer = () => {
                                 <li><a href="#" className="hover:text-white transition">About</a></li>
                                 <li><a href="#" className="hover:text-white transition">Contact</a></li>
                             </ul>
-                        </div>
+                        </motion.div>
 
                         {/* Column 3: Explore */}
-                        <div>
+                        <motion.div variants={itemFade}>
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Explore</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Shortlets</a></li>
@@ -106,10 +141,10 @@ const Footer = () => {
                                 <li><a href="#" className="hover:text-white transition">Lands</a></li>
                                 <li><a href="#" className="hover:text-white transition">Savings Plan</a></li>
                             </ul>
-                        </div>
+                        </motion.div>
 
                         {/* Column 4: Support */}
-                        <div>
+                        <motion.div variants={itemFade}>
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Support</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Help Center / FAQs</a></li>
@@ -117,24 +152,30 @@ const Footer = () => {
                                 <li><a href="#" className="hover:text-white transition">Referral Program</a></li>
                                 <li><a href="#" className="hover:text-white transition">Chat with Support</a></li>
                             </ul>
-                        </div>
+                        </motion.div>
 
                         {/* Column 5: Stay Connected */}
-                        <div>
+                        <motion.div variants={itemFade}>
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Stay Connected</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Terms & Conditions</a></li>
                                 <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
                                 <li><a href="#" className="hover:text-white transition">KYC Policy</a></li>
                             </ul>
-                        </div>
+                        </motion.div>
 
-                    </div>
+                    </motion.div>
 
-                    {/* Copyright */}
-                    <div className="pt-8 border-t border-white/10 text-xs text-blue-200">
+                    {/* Copyright (Fade In Last) */}
+                    <motion.div 
+                        className="pt-8 border-t border-white/10 text-xs text-blue-200"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 1 }}
+                        viewport={{ once: true }}
+                    >
                         <p>© {new Date().getFullYear()} Niel Properties. All rights reserved.</p>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </footer>

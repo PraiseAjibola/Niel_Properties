@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion'; // 1. Import Framer Motion
 
 const FeaturedProperties = () => {
   const [activeTab, setActiveTab] = useState('Shortlets');
@@ -33,8 +34,28 @@ const FeaturedProperties = () => {
     },
   ];
 
+  // 2. Define Animation Variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2 // Stagger the cards by 0.2 seconds
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, x: 100 }, // Start off-screen to the right
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { duration: 0.6, ease: "easeOut" } // Smooth slide in
+    }
+  };
+
   return (
-    <section className="py-16 md:py-24 bg-white font-sans">
+    <section className="py-16 md:py-24 bg-white font-sans overflow-hidden"> {/* Added overflow-hidden to prevent scrollbars during animation */}
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
         {/* --- Header & Tabs --- */}
@@ -70,10 +91,18 @@ const FeaturedProperties = () => {
         {/* --- CONTENT AREA --- */}
         {activeTab === 'Shortlets' ? (
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          /* 3. Wrap Grid in motion.div */
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.4 }} // Animates once when 20% visible
+          >
             {properties.map((property) => (
-              <div 
+              <motion.div 
                 key={property.id} 
+                variants={cardVariants} // Apply item variant
                 className="bg-white rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
               >
                 {/* Image */}
@@ -88,7 +117,7 @@ const FeaturedProperties = () => {
                 {/* Content */}
                 <div className="px-2 pb-2 flex flex-col flex-grow">
                   
-                  {/* UPDATED TITLE HERE: Added 'truncate' class */}
+                  {/* Title */}
                   <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight truncate" title={property.title}>
                     {property.title}
                   </h3>
@@ -118,14 +147,19 @@ const FeaturedProperties = () => {
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
         ) : (
 
           /* Not Available Message Box */
-          <div className="w-full h-80 flex flex-col items-center justify-center bg-gray-50 rounded-3xl border border-dashed border-gray-300 text-center px-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className="w-full h-80 flex flex-col items-center justify-center bg-gray-50 rounded-3xl border border-dashed border-gray-300 text-center px-4"
+          >
              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -135,7 +169,7 @@ const FeaturedProperties = () => {
              <p className="text-gray-500 mt-1">
                {activeTab} are not available for now. Please check back later or explore our Shortlets.
              </p>
-          </div>
+          </motion.div>
         )}
 
       </div>

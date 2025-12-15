@@ -1,17 +1,38 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion'; // 1. Import Framer Motion
 
-const SignUp = () => {
+const Login = () => {
   // State for password visibility toggles
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // --- ANIMATION VARIANTS ---
+  
+  // Left Column (Image): Starts on the Right, slides to Left
+  const slideFromRight = {
+    hidden: { x: '100%', opacity: 0 }, 
+    visible: { 
+      x: 0, 
+      opacity: 1,
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
+    }
+  };
+
+  // Right Column (Form): Starts on the Left, slides to Right
+  const slideFromLeft = {
+    hidden: { x: '-100%', opacity: 0 },
+    visible: { 
+      x: 0, 
+      opacity: 1,
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
   return (
-    // FIX 1: 'min-h-screen' allows mobile to scroll if needed. 'lg:h-screen' locks desktop height.
     <div className="min-h-screen lg:h-screen bg-white font-sans flex flex-col lg:flex-row items-center justify-center p-0 lg:p-6 overflow-x-hidden lg:overflow-hidden relative">
       
       {/* Back to Home Link */}
-      {/* Adjusted position for mobile to ensure it's visible over the image or white bg */}
       <div className="absolute top-4 right-4 lg:top-8 lg:right-10 z-30">
         <a href="/" className="text-white lg:text-gray-400 text-sm hover:text-gray-200 lg:hover:text-gray-900 transition flex items-center gap-2 drop-shadow-md lg:drop-shadow-none">
           <span className="h-4 w-[1px] bg-white lg:bg-gray-300"></span>
@@ -20,12 +41,16 @@ const SignUp = () => {
       </div>
 
       {/* Main Container */}
-      {/* Grid: 1 column on mobile, 2 columns on large screens */}
       <div className="w-full max-w-[1400px] h-full grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-24">
 
         {/* --- LEFT SIDE (Image) --- */}
-        {/* Mobile: Height fixed (h-64), rounded bottom corners. Desktop: Height full, rounded all corners */}
-        <div className="relative h-64 sm:h-80 lg:h-full w-full rounded-b-[3rem] lg:rounded-[2rem] overflow-hidden order-1">
+        {/* ANIMATION: Starts Right, Goes Left */}
+        <motion.div 
+          className="relative h-64 sm:h-80 lg:h-full w-full rounded-b-[3rem] lg:rounded-[2rem] overflow-hidden order-1 z-10" // z-10 ensures image stays on top during cross
+          initial="hidden"
+          animate="visible"
+          variants={slideFromRight}
+        >
           
           {/* Background Image */}
           <img 
@@ -37,7 +62,7 @@ const SignUp = () => {
           {/* Dark Overlay Gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 lg:to-transparent"></div>
 
-          {/* Bottom Overlay Image (Hidden on Mobile to save space) */}
+          {/* Bottom Overlay Image */}
           <div className="hidden lg:block absolute bottom-0 left-0 w-full p-8 z-10">
              <img 
                src="/Login_b_img.png" 
@@ -45,16 +70,21 @@ const SignUp = () => {
                className="w-[40rem] h-auto rounded-2xl shadow-lg"
              />
           </div>
-        </div>
+        </motion.div>
 
         {/* --- RIGHT SIDE (Form) --- */}
-        {/* Added padding for mobile content */}
-        <div className="w-full max-w-md mx-auto h-full flex flex-col justify-center p-6 lg:p-0 order-2">
+        {/* ANIMATION: Starts Left, Goes Right */}
+        <motion.div 
+          className="w-full max-w-md mx-auto h-full flex flex-col justify-center p-6 lg:p-0 order-2 z-0"
+          initial="hidden"
+          animate="visible"
+          variants={slideFromLeft}
+        >
           
           {/* Header */}
           <div className="mb-6 mt-4 lg:mt-0">
             <h1 className="text-3xl font-bold text-gray-900 mb-2 font-montserrat">
-             Login to Your Account
+              Login to Your Account
             </h1>
             <p className="text-gray-500 text-sm">
               Enter your credentials to access your account
@@ -165,11 +195,11 @@ const SignUp = () => {
             </p>
 
           </form>
-        </div>
+        </motion.div>
 
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;

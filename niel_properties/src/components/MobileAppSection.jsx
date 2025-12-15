@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const MobileAppSection = () => {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // --- FASTER TIMING CONFIGURATION (5s Total) ---
+  // 0%  - 10% (0.5s): Slide Behind
+  // 10% - 50% (2.0s): WAIT (This is your 2s delay)
+  // 50% - 60% (0.5s): UNBLUR & SLIDE OUT (Fast return)
+  // 60% - 100% (2.0s): Stay Visible
+
+  const phoneAnimation = {
+    x: isDesktop ? [0, 180, 180, 0, 0] : 0,
+    transition: {
+      duration: 5, // Total cycle is 5 seconds
+      times: [0, 0.1, 0.5, 0.6, 1], // The specific checkpoints
+      ease: "easeInOut",
+      repeat: 0, 
+    }
+  };
+
+  const contentAnimation = {
+    x: isDesktop ? [0, -180, -180, 0, 0] : 0,
+    opacity: isDesktop ? [1, 0, 0, 1, 1] : 1, // Opacity hits 0 quickly and stays there
+    scale: isDesktop ? [1, 0.9, 0.9, 1, 1] : 1,
+    transition: {
+      duration: 5,
+      times: [0, 0.1, 0.5, 0.6, 1], // Matches phone animation
+      ease: "easeInOut",
+      repeat: 0,
+    }
+  };
+
   return (
     <section className="py-16 md:py-0 md:pt-20 pb-0 bg-gray-50 font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
@@ -8,21 +46,28 @@ const MobileAppSection = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
           {/* --- LEFT SIDE: Phone Mockup --- */}
-          {/* We use negative margin on the bottom to let the phone touch the edge if desired, 
-              or just center it. Based on the design, it stands tall. */}
-          <div className="relative w-full lg:w-1/2 flex justify-center  lg:justify-end">
-            {/* Background Blob/Shadow effect (Optional) */}
+          <motion.div 
+            className="relative w-full lg:w-1/2 flex justify-center lg:justify-end z-20"
+            animate={phoneAnimation}
+            whileInView={phoneAnimation}
+            viewport={{ once: false }}
+          >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-blue-200/50 rounded-full blur-[80px] -z-10"></div>
             
             <img 
-              src="/Screen.png" // Replace with your blue phone image
+              src="/Screen.png" 
               alt="Niel Properties Mobile App" 
-              className="w-[280px] md:w-[340px] lg:w-[300px] drop-shadow-2xl transform hover:scale-105 transition duration-500"
+              className="w-[280px] md:w-[340px] lg:w-[300px] drop-shadow-2xl"
             />
-          </div>
+          </motion.div>
 
           {/* --- RIGHT SIDE: Content --- */}
-          <div className="w-full lg:w-3/4 text-center lg:text-left">
+          <motion.div 
+            className="w-full lg:w-3/4 text-center lg:text-left z-10"
+            animate={contentAnimation}
+            whileInView={contentAnimation}
+            viewport={{ once: false }}
+          >
             <h2 className="text-3xl font-montserrat md:text-4xl lg:text-4xl font-semi-bold text-gray-900 mb-6 font-montserrat leading-tight">
               Take Niel Properties With You
               Anytime, Anywhere
@@ -32,7 +77,6 @@ const MobileAppSection = () => {
               Manage your investments, book shortlets, pay in installments, or track your savings—all from your phone. Our mobile app makes real estate access seamless and portable.
             </p>
 
-            {/* Feature List */}
             <ul className="space-y-4 mb-10 text-left max-w-md mx-auto lg:mx-0">
               {[
                 'Real-time property booking',
@@ -49,10 +93,8 @@ const MobileAppSection = () => {
               ))}
             </ul>
 
-            {/* App Store Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               
-              {/* Google Play Button */}
               <button className="flex items-center gap-3 bg-white border border-gray-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-300 group">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Play_Arrow_logo.svg" alt="Google Play" className="w-6 h-6" />
                 <div className="text-left">
@@ -61,7 +103,6 @@ const MobileAppSection = () => {
                 </div>
               </button>
 
-              {/* App Store Button */}
               <button className="flex items-center gap-3 bg-white border border-gray-200 px-5 py-3 rounded-xl shadow-sm hover:shadow-md transition duration-300 group">
                 <svg className="w-7 h-7 text-black" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 19.22c-.66 0-1.28-.16-1.85-.48-.57-.32-1.12-.48-1.64-.48-.56 0-1.1.16-1.63.48-.53.32-1.12.48-1.76.48-.7 0-1.35-.18-1.95-.54-.6-.36-1.17-.83-1.7-1.42-.54-.59-1.01-1.25-1.41-1.98-.4-.73-.6-1.52-.6-2.37 0-1.03.24-1.95.72-2.76.48-.81 1.12-1.43 1.92-1.86.8-.43 1.64-.65 2.52-.65.73 0 1.4.16 2.01.48.61.32 1.13.48 1.56.48.38 0 .88-.16 1.5-.48.62-.32 1.32-.48 2.1-.48.88 0 1.69.21 2.43.63.74.42 1.34 1 1.8 1.74-1.64.88-2.46 2.18-2.46 3.9 0 1.25.43 2.3 1.29 3.15.27.27.57.51.9.72-.27.81-.62 1.56-1.05 2.25-.43.69-.95 1.26-1.56 1.71-.62.45-1.25.68-1.89.68zM14.6 6.36c0 .73-.25 1.4-.75 2.01-.5.61-1.15.99-1.95 1.14-.11-1.64.48-3.03 1.77-4.17 1.23-1.08 2.62-1.5 4.17-1.26-.38.8-.76 1.56-1.24 2.28z"/></svg>
                 <div className="text-left">
@@ -71,7 +112,7 @@ const MobileAppSection = () => {
               </button>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>
