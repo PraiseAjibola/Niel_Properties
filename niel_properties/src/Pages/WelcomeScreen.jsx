@@ -30,7 +30,7 @@ const WelcomeScreen = () => {
         <div 
           className="absolute inset-0 w-full h-full bg-cover bg-center transform scale-105">
           <img 
-          src="/public/WelcomeScreen_img.png" // Replace with your image path
+          src="/WelcomeScreen_img.png" // Replace with your image path
           alt="Building Background"
           className="absolute inset-0 w-full h-full object-cover object-center transform scale-105 blur-[6px] brightness-90"
         />
