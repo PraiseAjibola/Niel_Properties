@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; // ✅ Add the curly braces
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -7,6 +8,12 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  const navigate = useNavigate();
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  }
 
   return (
     <> 
@@ -74,7 +81,7 @@ const Navbar = () => {
           
           <div className="flex flex-col gap-4 mt-4 border-t pt-6">
             <Link to="/login" className="text-center text-gray-700 font-medium border border-gray-300 py-2 rounded-md hover:bg-gray-50" onClick={toggleMenu}>Log In</Link>
-            <button className="bg-blue-700 text-white py-2 rounded-md font-medium hover:bg-blue-800" onClick={toggleMenu}>Sign Up</button>
+            <button className="bg-blue-700 text-white py-2 rounded-md font-medium hover:bg-blue-800" onClick={() =>{ toggleMenu();handleSignupClick()}}>Sign Up</button>
           </div>
         </div>
       </div>
