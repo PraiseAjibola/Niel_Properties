@@ -24,16 +24,16 @@ const Navbar = () => {
 
         {/* --- Center Links --- */}
         <ul className="hidden lg:flex gap-10 list-none">
-          <li><a href="/" className="text-blue-700 font-semibold">Home</a></li>
-          <li><a href="/dashboard" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Dashboard</a></li>
-          <li><a href="/investment" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Investment</a></li>
-          <li><a href="/about" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">About</a></li>
-          <li><a href="/contact" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Contact</a></li>
+          <li><Link to="/" className="text-blue-700 font-semibold">Home</Link></li>
+          <li><Link to="/dashboard" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Dashboard</Link></li>
+          <li><Link to="/investment" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Investment</Link></li>
+          <li><Link to="/about" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">About</Link></li>
+          <li><Link to="/contact" className="text-gray-600 font-medium hover:text-blue-700 transition duration-300">Contact</Link></li>
         </ul>
 
         {/* --- Right Side Auth --- */}
         <div className="hidden lg:flex items-center gap-6">
-          <a href="/login" className="text-gray-700 font-medium hover:text-blue-700 transition">Log In</a>
+          <Link to="/login" className="text-gray-700 font-medium hover:text-blue-700 transition">Log In</Link>
           <button className="bg-blue-700 text-white px-6 py-2 rounded-md font-medium hover:bg-blue-800 transition duration-300">
            <Link to="/signup">Sign Up</Link>
           </button>
