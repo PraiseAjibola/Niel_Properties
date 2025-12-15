@@ -66,14 +66,14 @@ const Navbar = () => {
         </div>
 
         <div className="flex flex-col p-6 gap-6">
-          <a href="/" className="text-blue-700 font-semibold text-lg" onClick={toggleMenu}>Home</a>
-          <a href="/dashboard" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Dashboard</a>
-          <a href="/investment" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Investment</a>
-          <a href="/about" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>About</a>
-          <a href="/contact" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Contact</a>
+          <Link to="/" className="text-blue-700 font-semibold text-lg" onClick={toggleMenu}>Home</Link>
+          <Link to="/dashboard" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Dashboard</Link>
+          <Link to="/investment" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Investment</Link>
+          <Link to="/about" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>About</Link>
+          <Link to="/contact" className="text-gray-600 font-medium text-lg hover:text-blue-700" onClick={toggleMenu}>Contact</Link>
           
           <div className="flex flex-col gap-4 mt-4 border-t pt-6">
-            <a href="/login" className="text-center text-gray-700 font-medium border border-gray-300 py-2 rounded-md hover:bg-gray-50" onClick={toggleMenu}>Log In</a>
+            <Link to="/login" className="text-center text-gray-700 font-medium border border-gray-300 py-2 rounded-md hover:bg-gray-50" onClick={toggleMenu}>Log In</Link>
             <button className="bg-blue-700 text-white py-2 rounded-md font-medium hover:bg-blue-800" onClick={toggleMenu}>Sign Up</button>
           </div>
         </div>
