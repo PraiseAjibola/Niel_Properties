@@ -110,7 +110,7 @@ const RoleSelection = () => {
                     <Link
                         // Logic: If renter selected -> go to /renter-page, else go to /investor-page
                         // Update these paths to match your actual route names
-                        to={selectedRole === 'renter' ? '/' : '/'}
+                        to={selectedRole === 'renter' ? '/signup' : '/signup'}
 
                         // Safety Check: If no role is selected,"stop the link from working
                         onClick={(e) => !selectedRole && e.preventDefault()}

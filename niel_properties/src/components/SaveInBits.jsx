@@ -115,18 +115,17 @@ const SaveInBits = () => {
           </div>
 
           {/* 2. Floating Info Cards (Desktop Only) */}
-          <div className="hidden md:flex absolute top-10 left-10 lg:left-58 bg-white p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[200px] animate-bounce-slow z-30">
-            <p className="text-sm text-gray-600 font-medium">Track real-time progress visually</p>
-          </div>
-
-          <div className="hidden md:flex absolute top-20 right-10 lg:right-58 bg-white p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[200px] animate-bounce-slower z-30">
+         <div className="hidden md:flex absolute top-10 left-10 lg:left-56 max-[1240px]:!left-[8rem] max-[1110px]:!left-[8rem] max-[1212px]:!left-[8rem] bg-white p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[200px] animate-bounce-slow z-30">
+  <p className="text-sm text-gray-600 font-medium">Track real-time progress visually</p>
+</div>
+          <div className="hidden md:flex absolute top-20 right-10  max-[1240px]:!right-[8rem] max-[1110px]:!right-[8rem] max-[1212px]:!right-[8rem] max-[1208px]:!right-[10rem] lg:right-58 bg-white p-4 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[200px] animate-bounce-slower z-30">
             <div className="flex items-start gap-3">
               <div className="w-1 h-8 bg-blue-600 rounded-full shrink-0"></div>
               <p className="text-sm text-gray-600 font-medium">Flexible monthly or weekly savings</p>
             </div>
           </div>
 
-          <div className="hidden md:flex absolute bottom-62 left-0 lg:left-50 bg-white p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[240px] z-30">
+          <div className="hidden md:flex absolute bottom-62 max-[1240px]:!left-[8rem] max-[1110px]:!left-[7rem] max-[1117px]:!left-[5rem] max-[1139px]:!left-[7rem] max-[1212px]:!left-[8rem] max-[1208px]:!left-[10rem] max-[1165px]:!left-[7rem] max-[1070px]:!left-[4rem] left-0 lg:left-50 bg-white p-5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-gray-100 max-w-[240px] z-30">
             <p className="text-sm text-gray-600 font-medium leading-relaxed">Apply your savings toward lands, shortlets, or apartments</p>
           </div>
 

@@ -179,9 +179,9 @@ const FeaturedProperties = () => {
                     {property.specs}
                   </p>
 
-                  <div className="flex items-center justify-between mt-auto">
+                  <div className="md:flex min-[1023px]:gap-10 items-center justify-between mt-auto">
                     <div>
-                      <span className="block text-gray-900 font-bold text-lg">
+                      <span className="block pb-[10px] md:pb-0  text-gray-900 font-bold text-lg">
                         {property.price}
                         <span className="text-gray-500 font-normal text-sm">{property.unit}</span>
                       </span>

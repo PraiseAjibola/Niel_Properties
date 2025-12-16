@@ -83,7 +83,7 @@ const Login = () => {
 
                     {/* Header */}
                     <div className="mb-6 mt-4 lg:mt-0">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2 font-montserrat">
+                        <h1 className="md:text-3xl text-2xl font-bold text-gray-900 mb-2 font-montserrat">
                             Login to Your Account
                         </h1>
                         <p className="text-gray-500 text-sm">
