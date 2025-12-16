@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion'; // 1. Import Framer Motion
+import { motion } from 'framer-motion';
 
 const FeaturedProperties = () => {
   const [activeTab, setActiveTab] = useState('Shortlets');
@@ -34,33 +34,74 @@ const FeaturedProperties = () => {
     },
   ];
 
-  // 2. Define Animation Variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
+  // --- ANIMATION VARIANTS ---
+
+  // 1. Left Content (Title): Slides from Right to Left
+  const headerTextVariants = {
+    hidden: { opacity: 0, x: 100 }, // Starts 100px to the Right
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      transition: { duration: 0.8, ease: "easeOut" } 
+    }
+  };
+
+  // 2. Button Container: Controls the sequence (stagger)
+  const buttonContainerVariants = {
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2 // Stagger the cards by 0.2 seconds
+        staggerChildren: 0.2, // Delay between each button
+        delayChildren: 0.3    // Wait a bit before starting
       }
     }
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, x: 100 }, // Start off-screen to the right
+  // 3. Individual Buttons: Slide from Left to Right
+  const buttonItemVariants = {
+    hidden: { opacity: 0, x: -50 }, // Starts 50px to the Left
     visible: { 
       opacity: 1, 
       x: 0, 
-      transition: { duration: 0.6, ease: "easeOut" } // Smooth slide in
+      transition: { duration: 0.5, ease: "easeOut" } 
+    }
+  };
+
+  // 4. Grid Container (For Property Cards)
+  const gridContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  // 5. Grid Card (Slide Up)
+  const gridCardVariants = {
+    hidden: { opacity: 0, y: 80 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.5, ease: "easeOut" } 
     }
   };
 
   return (
-    <section className="py-16 md:py-24 bg-white font-sans overflow-hidden"> {/* Added overflow-hidden to prevent scrollbars during animation */}
+    <section className="py-16 md:py-24 bg-white font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
         {/* --- Header & Tabs --- */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
-          <div className="max-w-lg">
+          
+          {/* Left Content: Title & Desc */}
+          <motion.div 
+            className="max-w-lg"
+            variants={headerTextVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.5 }}
+          >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Featured Properties
             </h2>
@@ -68,13 +109,20 @@ const FeaturedProperties = () => {
               Browse our most popular and trusted property listings across Nigeria.
               From shortlets to long-term rentals and land sales, find your perfect fit today.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Filter Tabs */}
-          <div className="flex items-center gap-2 md:gap-4 overflow-x-auto pb-2 md:pb-0">
+          {/* Filter Tabs (Right Content) */}
+          <motion.div 
+            className="flex items-center gap-2 md:gap-4 overflow-x-auto pb-2 md:pb-0 scrollbar-hide"
+            variants={buttonContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.5 }}
+          >
             {['Shortlets', 'Apartments', 'Lands'].map((tab) => (
-              <button
+              <motion.button
                 key={tab}
+                variants={buttonItemVariants} // Apply slide from left variant
                 onClick={() => setActiveTab(tab)}
                 className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 whitespace-nowrap ${
                   activeTab === tab
@@ -83,27 +131,26 @@ const FeaturedProperties = () => {
                 }`}
               >
                 {tab}
-              </button>
+              </motion.button>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* --- CONTENT AREA --- */}
+        {/* --- CONTENT AREA (Grid) --- */}
         {activeTab === 'Shortlets' ? (
           
-          /* 3. Wrap Grid in motion.div */
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            variants={containerVariants}
+            variants={gridContainerVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.4 }} // Animates once when 20% visible
+            viewport={{ once: false, amount: 0.1 }}
           >
             {properties.map((property) => (
               <motion.div 
                 key={property.id} 
-                variants={cardVariants} // Apply item variant
-                className="bg-white rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group"
+                variants={gridCardVariants}
+                className="bg-white rounded-3xl p-4 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 flex flex-col group will-change-transform"
               >
                 {/* Image */}
                 <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-5">
@@ -116,8 +163,6 @@ const FeaturedProperties = () => {
 
                 {/* Content */}
                 <div className="px-2 pb-2 flex flex-col flex-grow">
-                  
-                  {/* Title */}
                   <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight truncate" title={property.title}>
                     {property.title}
                   </h3>
@@ -142,7 +187,7 @@ const FeaturedProperties = () => {
                       </span>
                     </div>
                     
-                    <button className="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-800 transition duration-300 shadow-md shadow-blue-700/20">
+                    <button className="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-800 transition duration-300 shadow-md shadow-blue-700/20 active:scale-95">
                       Book Now
                     </button>
                   </div>
@@ -155,20 +200,20 @@ const FeaturedProperties = () => {
 
           /* Not Available Message Box */
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="w-full h-80 flex flex-col items-center justify-center bg-gray-50 rounded-3xl border border-dashed border-gray-300 text-center px-4"
           >
-             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-             </div>
-             <h3 className="text-lg font-semibold text-gray-900">No Listings Found</h3>
-             <p className="text-gray-500 mt-1">
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900">No Listings Found</h3>
+              <p className="text-gray-500 mt-1">
                {activeTab} are not available for now. Please check back later or explore our Shortlets.
-             </p>
+              </p>
           </motion.div>
         )}
 
