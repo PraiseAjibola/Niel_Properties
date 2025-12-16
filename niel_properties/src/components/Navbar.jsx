@@ -64,7 +64,7 @@ const Navbar = () => {
       {/* Side Menu */}
       <div className={`fixed inset-y-0 right-0 w-64 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out z-[60] ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex justify-between items-center p-6 border-b">
-            <span className="font-bold text-xl text-blue-700">Menu</span>
+            <img src="/Logo_img.png" alt="" className='w-38' />
             <button onClick={toggleMenu} className="text-gray-600 focus:outline-none">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
