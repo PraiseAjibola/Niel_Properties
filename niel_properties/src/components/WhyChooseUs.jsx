@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion'; // 1. Import Framer Motion
 
 const WhyChooseUs = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  // 2. Check for mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Tailwind 'md' breakpoint is 768px
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const features = [
     {
+      id: 0, // Added ID for easier identification
       title: "Flexible Investment Options",
       desc: "Start investing with as little or as much as you're comfortable with. Choose fixed or custom investment plans tailored to your financial goals.",
       icon: (
@@ -10,6 +24,7 @@ const WhyChooseUs = () => {
       )
     },
     {
+      id: 1,
       title: "High ROI Opportunities",
       desc: "Our curated projects offer competitive returns with transparent reporting. Track your investments and watch your wealth grow over time.",
       icon: (
@@ -17,6 +32,7 @@ const WhyChooseUs = () => {
       )
     },
     {
+      id: 2,
       title: "Verified & Trusted Listings",
       desc: "Every property on Niel Properties is vetted for legal and physical authenticity. You invest or rent confidently knowing you're dealing with verified assets.",
       icon: (
@@ -25,8 +41,58 @@ const WhyChooseUs = () => {
     }
   ];
 
+  // 3. Define Variants
+  // The 'middle' card stays put (or fades in). 
+  // The 'first' and 'last' cards start at the center (y: 0 relative to stack) then move to their grid spot.
+  // Note: In a vertical stack (mobile), 'center' usually means they overlap. 
+  // Since they are stacked vertically in the DOM, we use negative margins or absolute positioning to overlap them initially, 
+  // OR we use 'y' transforms to pull them into the middle. 
+  
+  // Strategy: 
+  // Card 1 (Top): Starts moving down (+y) to hide behind Card 2, then moves back up (y:0).
+  // Card 3 (Bottom): Starts moving up (-y) to hide behind Card 2, then moves back down (y:0).
+  
+  // Approximation of card height + gap for overlap calculation (approx 300px)
+  const overlapDistance = 320; 
+
+  const getCardVariant = (index) => {
+    if (!isMobile) return {}; // No animation on desktop
+
+    if (index === 0) {
+      // First Card: Starts down (behind middle), moves to 0
+      return {
+        hidden: { y: overlapDistance, opacity: 0, scale: 0.9, zIndex: 0 },
+        visible: { 
+          y: 0, 
+          opacity: 1, 
+          scale: 1, 
+          zIndex: 1,
+          transition: { delay: 1.5, duration: 0.8, ease: "easeOut" } 
+        }
+      };
+    } else if (index === 2) {
+      // Last Card: Starts up (behind middle), moves to 0
+      return {
+        hidden: { y: -overlapDistance, opacity: 0, scale: 0.9, zIndex: 0 },
+        visible: { 
+          y: 0, 
+          opacity: 1, 
+          scale: 1, 
+          zIndex: 1,
+          transition: { delay: 1.5, duration: 0.8, ease: "easeOut" } 
+        }
+      };
+    } else {
+      // Middle Card: Just appears
+      return {
+        hidden: { opacity: 1, scale: 1, zIndex: 10 }, // Higher z-index to sit on top
+        visible: { opacity: 1, scale: 1 }
+      };
+    }
+  };
+
   return (
-    <section className="py-16 md:py-14 bg-white font-sans">
+    <section className="py-16 md:py-14 bg-white font-sans overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
         {/* Header */}
@@ -46,10 +112,17 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 relative">
           {features.map((feature, index) => (
-            // UPDATE: Added 'text-center', 'flex', 'flex-col', 'items-center'
-            <div key={index} className="bg-white p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition duration-300 group text-center flex flex-col items-center">
+            <motion.div 
+              key={index} 
+              // 4. Apply Dynamic Variants
+              variants={getCardVariant(index)}
+              initial={isMobile ? "hidden" : "visible"} // Only run initial state on mobile
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-xl transition duration-300 group text-center flex flex-col items-center relative"
+            >
               
               {/* Icon Circle */}
               <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition duration-300 shadow-lg shadow-blue-600/20">
@@ -63,7 +136,7 @@ const WhyChooseUs = () => {
               <p className="text-gray-500 text-sm leading-relaxed">
                 {feature.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
