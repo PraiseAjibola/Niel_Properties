@@ -39,54 +39,54 @@ const RecommendedProperties = () => {
       </h2>
 
       {/* Grid Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {properties.map((property) => (
-    <div
-      key={property.id}
-      className="group flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
-    >
-      {/* Image Container - Added p-2 and rounded-b-2xl to create the "inset" look */}
-      <div className="relative h-56 w-full overflow-hidden p-2">
-        <img
-          src={property.image}
-          alt={property.title}
-          className="h-full w-full object-cover rounded-t-xl rounded-b-2xl hover:grayscale transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {properties.map((property) => (
+          <div
+            key={property.id}
+            className="group flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          >
+            {/* Image */}
+            <div className="relative h-56 w-full overflow-hidden">
+              <img
+                src={property.image}
+                alt={property.title}
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-col p-5">
+              <h3 className="text-lg font-bold text-gray-900">
+                {property.title}
+              </h3>
+
+              <p className="mt-1 text-sm text-gray-500">
+                {property.location}
+              </p>
+
+              <p className="mt-2 text-sm text-gray-500">
+                {property.specs}
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-auto border-t border-gray-100 p-5 flex items-center justify-between">
+              <div className="flex items-baseline gap-1">
+                <span className="text-lg font-bold text-gray-900">
+                  {property.price}
+                </span>
+                <span className="text-sm text-gray-500 font-normal">
+                  /{property.period}
+                </span>
+              </div>
+
+              <button className="bg-[#0056b3] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors">
+                Book Now
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
-
-      {/* Content */}
-      <div className="flex flex-col p-5">
-        <h3 className="text-lg font-bold text-gray-900">
-          {property.title}
-        </h3>
-
-        <p className="mt-1 text-sm text-gray-500">
-          {property.location}
-        </p>
-
-        <p className="mt-2 text-sm text-gray-500">
-          {property.specs}
-        </p>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-auto border-t border-gray-100 p-5 flex items-center justify-between">
-        <div className="flex items-baseline gap-1">
-          <span className="text-lg font-bold text-gray-900">
-            {property.price}
-          </span>
-          <span className="text-sm text-gray-500 font-normal">
-            /{property.period}
-          </span>
-        </div>
-
-        <button className="bg-[#0056b3] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors">
-          Book Now
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
     </section>
   )
 }

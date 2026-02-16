@@ -1,22 +1,25 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { LuBell, LuUser, LuSearch } from 'react-icons/lu'
+import { LuBell, LuUser, LuSearch, LuMenu } from 'react-icons/lu'
 import { AiFillCustomerService } from "react-icons/ai";
-
+import { useSidebar } from '../context/SidebarContext'
 
 const DashHeader = () => {
   const location = useLocation();
+  const { setIsOpen } = useSidebar();
   const pathname = location.pathname;
 
   const renderLeftContent = () => {
     if (pathname === '/dashboard' || pathname === '/dashboard/overview') {
       return <h1 className='montserrat text-[22px] font-medium text-[#3A3A3ABF]'>Overview</h1>;
     }
+
     if (pathname === '/dashboard/profile') {
       return <h1 className='montserrat text-[22px] font-medium text-[#3A3A3ABF]'>Profile</h1>;
     }
+
     return (
-      <div className='flex items-center bg-gray-100 rounded-full px-4 py-2 w-[400px]'>
+      <div className='hidden md:flex items-center bg-gray-100 rounded-full px-4 py-2 w-[400px]'>
         <input 
           type="text" 
           placeholder="Search" 
@@ -28,18 +31,21 @@ const DashHeader = () => {
   };
 
   return (
-    <div className='bg-[#FFFFFF] flex items-center justify-between py-4 px-6'>
-      {renderLeftContent()}
+    <div className='bg-[#FFFFFF] flex items-center justify-between py-4 px-6 sticky top-0 z-30'>
+
+      <div className="flex items-center gap-3">
+        {/* Hamburger (mobile only) */}
+        <button onClick={() => setIsOpen(true)} className="md:hidden">
+          <LuMenu size={26} />
+        </button>
+
+        {renderLeftContent()}
+      </div>
+
       <div className='flex items-center gap-4'>
-        <button className='text-gray-500 hover:text-gray-700'>
-          <LuBell size={24} />
-        </button>
-        <button className='text-gray-500 hover:text-gray-700'>
-          <AiFillCustomerService size={24} />
-        </button>
-        <button className='text-gray-500 hover:text-gray-700'>
-          <LuUser size={24} />
-        </button>
+        <LuBell className='text-[#1E1E1E80]' size={24} />
+        <AiFillCustomerService className='text-[#1E1E1E80]' size={24} />
+        <LuUser className='text-[#1E1E1E80]' size={24} />
       </div>
     </div>
   )

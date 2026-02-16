@@ -34,6 +34,7 @@ function App() {
       <Route path="/success" element={<SuccessPage />} />
       <Route path="/kyc" element={<KYCVerification />} />
       <Route path="/dashboard" element={<Overview />} />
+       {/* <Route path="/referrals" element={<Referrals />} /> */}
     </Routes>
     // 3. DELETE </Router> here
   );

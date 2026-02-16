@@ -1,8 +1,10 @@
-import React from 'react';
+import {useContext} from 'react';
+import { KYCStatusContext } from '../context/KYCStatus';
 
 const ReminderCard = () => {
+    const { isKYCDone } = useContext(KYCStatusContext);
     return (
-        <div className="relative w-[320px] h-[320px] overflow-hidden rounded-2xl font-sans flex-shrink-0">
+        <div className="relative w-full min-[1151px]:w-[320px] h-[320px] overflow-hidden rounded-2xl font-sans flex-shrink-0">
             <div className="absolute inset-0 z-0 pointer-events-none">
                 <img src="/reminderbg.png" alt="" className="w-full h-full object-cover" />
             </div>
@@ -19,7 +21,7 @@ const ReminderCard = () => {
                 </div>
 
                 <button className="mt-auto rounded-lg w-fit bg-white px-6 py-3 text-[14px] font-bold text-[#0152BB] shadow-md transition-transform hover:scale-105 active:scale-95">
-                    Verify Now
+                    {isKYCDone ? "Refer Now" : "Verify Now"}
                 </button>
             </div>
         </div>
