@@ -150,7 +150,7 @@ const Footer = () => {
                                 <li><a href="#" className="hover:text-white transition">Help Center / FAQs</a></li>
                                 <li><a href="/how-it-works" className="hover:text-white transition">How it Works</a></li>
                                 <li><a href="/dashboard/referrals" className="hover:text-white transition">Referral Program</a></li>
-                                <li><a href="#" className="hover:text-white transition">Chat with Support</a></li>
+                                <li><a href="/support-chat" className="hover:text-white transition">Chat with Support</a></li>
                             </ul>
                         </motion.div>
 
