@@ -14,7 +14,7 @@ import KYCVerification from "./Pages/KYCVerification";
 import HowItWorks from "./components/HowItWorks";
 import WhyChooseUs from "./components/WhyChooseUs";
 import Overview from "./Pages/dashboard/Overview";
-import Referrals from "./pages/dashboard/Referrals";
+// import Referrals from "./pages/dashboard/Referrals";
 import NotificationModal from "./pages/dashboard/Notifications";
 import FeaturedProperties from "./components/FeaturedProperties";
 import { KYCStatusContext } from "./context/KYCStatus";
