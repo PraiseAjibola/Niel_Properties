@@ -126,8 +126,8 @@ const Footer = () => {
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Home</a></li>
                                 <li><a href="/dashboard" className="hover:text-white transition">Dashboard</a></li>
-                                <li><a href="#" className="hover:text-white transition">Investment</a></li>
-                                <li><a href="#" className="hover:text-white transition">About</a></li>
+                                <li><a href="/kyc" className="hover:text-white transition">Investment</a></li>
+                                <li><a href="/how-it-works" className="hover:text-white transition">About</a></li>
                                 <li><a href="#" className="hover:text-white transition">Contact</a></li>
                             </ul>
                         </motion.div>
@@ -136,10 +136,10 @@ const Footer = () => {
                         <motion.div variants={itemFade}>
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Explore</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
-                                <li><a href="#" className="hover:text-white transition">Shortlets</a></li>
-                                <li><a href="#" className="hover:text-white transition">Apartments</a></li>
-                                <li><a href="#" className="hover:text-white transition">Lands</a></li>
-                                <li><a href="#" className="hover:text-white transition">Savings Plan</a></li>
+                                <li><a href="/featured-properties" className="hover:text-white transition">Shortlets</a></li>
+                                <li><a href="/featured-properties" className="hover:text-white transition">Apartments</a></li>
+                                <li><a href="/featured-properties" className="hover:text-white transition">Lands</a></li>
+                                <li><a href="/featured-properties" className="hover:text-white transition">Savings Plan</a></li>
                             </ul>
                         </motion.div>
 
@@ -148,8 +148,8 @@ const Footer = () => {
                             <h4 className="font-bold text-lg mb-6 font-montserrat">Support</h4>
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Help Center / FAQs</a></li>
-                                <li><a href="#" className="hover:text-white transition">How it Works</a></li>
-                                <li><a href="#" className="hover:text-white transition">Referral Program</a></li>
+                                <li><a href="/how-it-works" className="hover:text-white transition">How it Works</a></li>
+                                <li><a href="/dashboard/referrals" className="hover:text-white transition">Referral Program</a></li>
                                 <li><a href="#" className="hover:text-white transition">Chat with Support</a></li>
                             </ul>
                         </motion.div>
@@ -160,7 +160,7 @@ const Footer = () => {
                             <ul className="space-y-4 text-sm text-blue-100/80">
                                 <li><a href="#" className="hover:text-white transition">Terms & Conditions</a></li>
                                 <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                                <li><a href="#" className="hover:text-white transition">KYC Policy</a></li>
+                                <li><a href="/kyc" className="hover:text-white transition">KYC Policy</a></li>
                             </ul>
                         </motion.div>
 

@@ -58,9 +58,9 @@ const Hero = () => {
                         variants={slideFromRight}
                         className="flex flex-wrap gap-4"
                     >
-                        <button className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto">
+                        <Link to="/dashboard" className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto">
                             Dashboard
-                        </button>
+                        </Link>
 
                         <Link
                             to="/welcome"

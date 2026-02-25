@@ -33,7 +33,8 @@ export default function KYCVerification() {
     validationSchema,
     onSubmit: (values) => {
       console.log('Form submitted:', values)
-      setStep(4)
+      setStep(4);
+      KYCStatFunction();
     },
   })
 
@@ -66,39 +67,37 @@ export default function KYCVerification() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5FEFD] flex items-center justify-center p-4 font-sans">
-      <div className="bg-white  rounded-3xl shadow-xl py-8 px-8 md:px-[101px] w-full max-w-[850px] min-h-[500px] flex flex-col">
-        {step < 4 ? (
-          <>
-            <h1 className="text-2xl md:text-[40px] montserrat font-[700] text-center text-[#3A3A3A] mb-6">
-              Complete Your KYC Verification
-            </h1>
+    <div className="bg-white rounded-3xl shadow-xl py-8 px-8 md:px-[101px] w-full max-w-[850px] min-h-[500px] flex flex-col">
+      {step < 4 ? (
+        <>
+          <h1 className="text-2xl md:text-[40px] montserrat font-[700] text-center text-[#3A3A3A] mb-6">
+            Complete Your KYC Verification
+          </h1>
 
-            <Stepper currentStep={step} totalSteps={3} />
+          <Stepper currentStep={step} totalSteps={3} />
 
-            <div className="flex-grow">
-              {step === 1 && <PersonalInfoForm formik={formik} />}
-              {step === 2 && <IDUploadForm formik={formik} />}
-              {step === 3 && <SelfieUpload formik={formik} />}
-            </div>
+          <div className="flex-grow">
+            {step === 1 && <PersonalInfoForm formik={formik} />}
+            {step === 2 && <IDUploadForm formik={formik} />}
+            {step === 3 && <SelfieUpload formik={formik} />}
+          </div>
 
-            <div className="mt-8 space-y-3">
-              <button
-                onClick={handleNext}
-                className="w-full bg-[#0152BB] hover:bg-blue-800 text-white font-semibold py-3 rounded-full transition-colors shadow-blue-200 shadow-lg"
-              >
-                {step === 3 ? 'Submit for Verification' : 'Next'}
-              </button>
+          <div className="mt-8 space-y-3">
+            <button
+              onClick={handleNext}
+              className="w-full bg-[#0152BB] hover:bg-blue-800 text-white font-semibold py-3 rounded-full transition-colors shadow-blue-200 shadow-lg"
+            >
+              {step === 3 ? 'Submit for Verification' : 'Next'}
+            </button>
 
-              <button className="w-full text-gray-400 text-sm py-2 hover:text-gray-600">
-                Skip for later
-              </button>
-            </div>
-          </>
-        ) : (
-          <KYCSucces />
-        )}
-      </div>
+            <button className="w-full text-gray-400 text-sm py-2 hover:text-gray-600">
+              Skip for later
+            </button>
+          </div>
+        </>
+      ) : (
+        <KYCSucces />
+      )}
     </div>
   )
 }

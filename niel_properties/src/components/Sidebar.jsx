@@ -14,11 +14,11 @@ const Sidebar = () => {
     const navLinks = [
         { name: 'Home', href: '/' },
         { name: 'Overview', href: '/dashboard' },
-        { name: 'My Profile', href: '#' },
-        { name: 'Property Bookings', href: '#' },
+        { name: 'My Profile', href: '/profile' },
+        { name: 'Property Bookings', href: '/property-bookings' },
         { name: 'Notifications', href: '#', onClick: openNotifications },
         { name: 'Referrals', href: '/dashboard/referrals' },
-        { name: 'Support Chat', href: '#' }
+        { name: 'Support Chat', href: '/support-chat' }
     ];
 
     const handleLinkClick = (link) => {
