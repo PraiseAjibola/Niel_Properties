@@ -31,6 +31,7 @@ import CancelBooking from "./components/CancelBooking";
 import BookAgain from "./components/BookAgain";
 import BrowseProperties from "./components/Browseproperties";
 
+import ScrollToTop from "./components/ScrollToTop";
 import Hero from "./components/Testing";
 import "./App.css";
 
@@ -67,6 +68,8 @@ function App() {
       <SidebarProvider>
         <NotificationProvider>
           <LogoutProvider>
+            {/* 👇 Scrolls to top on every route change */}
+            <ScrollToTop />
             {/* 👇 Now available on every route, not just dashboard */}
             <GlobalModals />
 
