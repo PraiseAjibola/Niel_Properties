@@ -27,26 +27,35 @@ import PropertyBookings from "./components/PropertyBooings";
 import Sidebar from "./components/Sidebar";
 import DashHeader from "./components/DashHeader";
 import LogoutModal from "./components/LogoutModal";
+import CancelBooking from "./components/CancelBooking";
+import BookAgain from "./components/BookAgain";
+import BrowseProperties from "./components/Browseproperties";
 
 import Hero from "./components/Testing";
 import "./App.css";
 
 const DashboardLayout = () => {
-  const { isNotificationOpen, closeNotifications } = useNotification();
-  const { isLogoutOpen, closeLogout } = useLogout();
-
   return (
     <div className="flex">
       <Sidebar />
-
       <div className="flex-1 min-h-screen overflow-y-auto bg-[#F5FEFD] md:ml-[280px]">
         <DashHeader />
         <Outlet />
       </div>
+    </div>
+  );
+};
 
+// 👇 Extracted so it can consume context — renders on every page
+const GlobalModals = () => {
+  const { isNotificationOpen, closeNotifications } = useNotification();
+  const { isLogoutOpen, closeLogout } = useLogout();
+
+  return (
+    <>
       <NotificationModal isOpen={isNotificationOpen} onClose={closeNotifications} />
       <LogoutModal isOpen={isLogoutOpen} onClose={closeLogout} />
-    </div>
+    </>
   );
 };
 
@@ -58,6 +67,9 @@ function App() {
       <SidebarProvider>
         <NotificationProvider>
           <LogoutProvider>
+            {/* 👇 Now available on every route, not just dashboard */}
+            <GlobalModals />
+
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<Home />} />
@@ -75,6 +87,9 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/support-chat" element={<SupportChat />} />
               <Route path="/property-bookings" element={<PropertyBookings />} />
+              <Route path="/cancel-booking" element={<CancelBooking />} />
+              <Route path="/book-again" element={<BookAgain />} />
+              <Route path="/browse-properties" element={<BrowseProperties />} />
 
               {/* KYC route */}
               <Route

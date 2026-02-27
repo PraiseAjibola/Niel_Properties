@@ -23,7 +23,7 @@ const Hero = () => {
     return (
         <div className="relative h-screen w-full font-sans overflow-hidden">
 
-            {/* Background Image & Overlay (No Changes) */}
+            {/* Background Image & Overlay */}
             <img
                 src="/Hero_img.png"
                 alt="Real Estate Background"
@@ -36,45 +36,49 @@ const Hero = () => {
 
                 <div className="max-w-4xl space-y-6 md:space-y-8 mt-[-150px] md:mt-0">
 
-                    {/* --- HEADING: SLIDES FROM LEFT --- */}
+                    {/* --- HEADING: SPACE FIX --- */}
                     <motion.h1
                         initial="hidden"
-                        whileInView="visible" // <--- CHANGED from 'animate' to 'whileInView'
-                        viewport={{ once: false }} // <--- Ensures it plays every time you see it
+                        whileInView="visible"
+                        viewport={{ once: false }}
                         variants={slideFromLeft}
                         className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold leading-tight drop-shadow-lg"
                     >
-                        Invest. Rent. Own. <br className="md:hidden" /> Your Path
-                        <span className="hidden md:inline"> </span>
+                        Invest. Rent. Own. <br className="md:hidden" /> Your Path{' '}
                         to Real Estate Wealth Starts <br className="hidden md:block" />
                         Here.
                     </motion.h1>
 
-                    {/* --- BUTTONS: SLIDE FROM RIGHT --- */}
+                    {/* --- BUTTONS: CONSISTENT MOBILE SIZE & STYLE --- */}
                     <motion.div
                         initial="hidden"
-                        whileInView="visible" // <--- CHANGED
+                        whileInView="visible"
                         viewport={{ once: false }}
                         variants={slideFromRight}
-                        className="flex flex-wrap gap-4"
+                        className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
                     >
-                        <Link to="/dashboard" className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto">
+                        {/* Dashboard: Blue background & White text on ALL screens */}
+                        <Link 
+                            to="/dashboard" 
+                            className="bg-blue-700 hover:bg-blue-800 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto text-center"
+                        >
                             Dashboard
                         </Link>
 
+                        {/* Start Investing: Bordered/Transparent style */}
                         <Link
                             to="/welcome"
-                            className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto inline-block text-center"
+                            className="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-6 py-3 md:px-8 md:py-3 rounded-full font-medium transition duration-300 shadow-lg text-sm md:text-base w-full sm:w-auto text-center"
                         >
                             Start Investing
                         </Link>
                     </motion.div>
                 </div>
 
-                {/* --- MOBILE CARD: SLIDES FROM TOP --- */}
+                {/* --- MOBILE CARD --- */}
                 <motion.div
                     initial="hidden"
-                    whileInView="visible" // <--- CHANGED
+                    whileInView="visible"
                     viewport={{ once: false }}
                     variants={slideFromTop}
                     className="mt-12 md:hidden bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-lg shadow-xl"
@@ -84,10 +88,10 @@ const Hero = () => {
                     </p>
                 </motion.div>
 
-                {/* --- DESKTOP CARD: SLIDES FROM TOP --- */}
+                {/* --- DESKTOP CARD --- */}
                 <motion.div
                     initial="hidden"
-                    whileInView="visible" // <--- CHANGED
+                    whileInView="visible"
                     viewport={{ once: false }}
                     variants={slideFromTop}
                     className="absolute bottom-10 right-6 lg:right-16 max-w-md bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-lg shadow-xl hidden md:block"
