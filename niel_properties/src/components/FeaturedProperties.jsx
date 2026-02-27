@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // 👈 added
 
 const FeaturedProperties = () => {
   const [activeTab, setActiveTab] = useState('Shortlets');
+  const navigate = useNavigate(); // 👈 added
 
   const properties = [
     {
@@ -187,7 +189,10 @@ const FeaturedProperties = () => {
                       </span>
                     </div>
                     
-                    <button className="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-800 transition duration-300 shadow-md shadow-blue-700/20 active:scale-95">
+                    <button
+                      onClick={() => navigate('/browse-properties')} // 👈 added
+                      className="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-800 transition duration-300 shadow-md shadow-blue-700/20 active:scale-95"
+                    >
                       Book Now
                     </button>
                   </div>
