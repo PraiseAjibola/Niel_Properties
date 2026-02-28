@@ -8,9 +8,8 @@ const PropertyBookings = () => {
   const [activeTab, setActiveTab] = useState("Ongoing");
   const [showBrowseView, setShowBrowseView] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState(null);
-  const navigate = useNavigate(); // 👈 added
+  const navigate = useNavigate();
 
-  // Data Arrays
   const ongoingBookings = [
     { id: 0, name: "2 Bedroom Flat", type: "Shortlet", status: "Ongoing", date: "July 1 - July 4, 2025 (4 nights)" }
   ];
@@ -26,7 +25,6 @@ const PropertyBookings = () => {
     { id: 2, name: "2 Bedroom Flat", type: "Shortlet", status: "Canceled", date: "March 15 - March 18, 2025 (4 nights)" },
   ];
 
-  // Helper to get data based on tab
   const getActiveData = () => {
     if (activeTab === "Ongoing") return ongoingBookings;
     if (activeTab === "Completed") return completedBookings;
@@ -38,16 +36,13 @@ const PropertyBookings = () => {
 
   return (
     <div className="flex min-h-screen bg-[#F8FDFF]">
-      <aside className="hidden lg:block w-64 flex-shrink-0 border-r border-gray-100 bg-white">
-        <Sidebar />
-      </aside>
+      <Sidebar />
 
       <div className="flex-1 flex flex-col min-w-0">
         <ProperBookingHeader />
 
         <main className="p-4 md:p-8 max-w-7xl w-full mx-auto">
           {showBrowseView ? (
-            /* 1. BROWSE VIEW (EMPTY STATE) */
             <div className="flex flex-col items-center justify-center py-20 text-center">
               <div className="bg-gray-100 p-8 rounded-full mb-6">
                 <span className="text-6xl grayscale opacity-50">🔍</span>
@@ -66,13 +61,11 @@ const PropertyBookings = () => {
               </div>
             </div>
           ) : selectedBooking ? (
-            /* 2. SELECTED BOOKING DETAIL VIEW */
             <BookingCard
-              bookingData={selectedBooking}                      // 👈 passes the clicked booking
-              onBack={() => setSelectedBooking(null)}            // 👈 back button returns to list
+              bookingData={selectedBooking}
+              onBack={() => setSelectedBooking(null)}
             />
           ) : (
-            /* 3. MAIN DASHBOARD VIEW */
             <>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
                 <h1 className="text-2xl font-bold text-gray-800">My Property Bookings</h1>
@@ -84,7 +77,6 @@ const PropertyBookings = () => {
                 </button>
               </div>
 
-              {/* Tabs */}
               <div className="flex gap-3 mb-8 overflow-x-auto pb-2 no-scrollbar">
                 {["Ongoing", "Completed", "Canceled"].map((tab) => (
                   <button
@@ -100,7 +92,6 @@ const PropertyBookings = () => {
                 ))}
               </div>
 
-              {/* Table / Content Area */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 {currentData.length > 0 ? (
                   <div className="overflow-x-auto">
@@ -120,8 +111,7 @@ const PropertyBookings = () => {
                             <td className="p-4 text-gray-700 font-medium">{booking.name}</td>
                             <td className="p-4 text-gray-600">{booking.type}</td>
                             <td className="p-4">
-                              <span className={`px-2.5 py-1 rounded text-xs font-semibold ${booking.status === "Canceled" ? "bg-red-50 text-red-600" : "bg-blue-50 text-blue-600"
-                                }`}>
+                              <span className={`px-2.5 py-1 rounded text-xs font-semibold ${booking.status === "Canceled" ? "bg-red-50 text-red-600" : "bg-blue-50 text-blue-600"}`}>
                                 {booking.status}
                               </span>
                             </td>
@@ -140,7 +130,6 @@ const PropertyBookings = () => {
                     </table>
                   </div>
                 ) : (
-                  /* Empty State for specific tabs */
                   <div className="flex flex-col items-center justify-center py-24 text-center px-6">
                     <div className="w-32 h-32 bg-[#F0F7FF] rounded-full flex items-center justify-center mb-8">
                       <span className="text-5xl opacity-80">📄</span>
