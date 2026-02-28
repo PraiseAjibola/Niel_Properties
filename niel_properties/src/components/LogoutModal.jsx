@@ -1,6 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
 
 export default function LogoutModal({ isOpen, onClose }) {
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         // Logout logic will be implemented later
         console.log('Logging out...')
@@ -37,7 +40,10 @@ export default function LogoutModal({ isOpen, onClose }) {
                                 {/* Buttons */}
                                 <div className="flex gap-3 sm:gap-4">
                                     <button
-                                        onClick={handleLogout}
+                                        onClick={() => {
+                                            onClose();
+                                            navigate("/");
+                                        }}
                                         className="flex-1 py-2.5 sm:py-3 px-4 border border-[#0152BB] text-[#0152BB] rounded-lg font-medium text-sm sm:text-base hover:bg-blue-50 transition-colors cursor-pointer"
                                     >
                                         Log me out
