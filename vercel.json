@@ -1,3 +1,8 @@
 {
-  "routes": [{ "src": "/[^.]+", "dest": "/", "status": 200 }]
+  "rewrites": [
+    {
+      "source": "/((?!api/|static/|_next/|favicon.ico).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
