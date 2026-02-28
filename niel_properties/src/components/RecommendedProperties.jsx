@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 const properties = [
   {
@@ -30,7 +31,9 @@ const properties = [
   },
 ]
 
+
 const RecommendedProperties = () => {
+  const navigate = useNavigate();
   return (
     <section className="w-full max-w-7xl mx-auto p-6 font-sans">
       {/* Section Header */}
@@ -80,9 +83,12 @@ const RecommendedProperties = () => {
                 </span>
               </div>
 
-              <button className="bg-[#0056b3] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors">
-                Book Now
-              </button>
+              <button
+  onClick={() => navigate(`/property/${property.id}`)}
+  className="bg-[#0056b3] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors"
+>
+  Book Now
+</button>
             </div>
           </div>
         ))}

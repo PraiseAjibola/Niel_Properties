@@ -142,7 +142,7 @@ const BookingDetail = ({ bookingData, onBack }) => {
                         {(isCompleted || isCanceled) && (
                             <div className="mt-8">
                                 <button
-                                    onClick={() => navigate('/properties')}
+                                    onClick={() => navigate('/property/:id')}
                                     className="w-full md:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-200 transition-all active:scale-95 text-center"
                                 >
                                     Book Again

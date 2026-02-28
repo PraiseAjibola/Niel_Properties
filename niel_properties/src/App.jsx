@@ -30,6 +30,7 @@ import LogoutModal from "./components/LogoutModal";
 import CancelBooking from "./components/CancelBooking";
 import BookAgain from "./components/BookAgain";
 import BrowseProperties from "./components/Browseproperties";
+import PropertyBookingForm from "./components/PropertyBookingForm";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Hero from "./components/Testing";
@@ -93,6 +94,7 @@ function App() {
               <Route path="/cancel-booking" element={<CancelBooking />} />
               <Route path="/book-again" element={<BookAgain />} />
               <Route path="/browse-properties" element={<BrowseProperties />} />
+              <Route path="/property/:id" element={<PropertyBookingForm />} />
 
               {/* KYC route */}
               <Route
